@@ -3,170 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HinaHub • Pure Pleasure</title>
+    <title>HinaHub • Premium Desi Pleasure</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
         body { font-family: 'Inter', system-ui, sans-serif; }
         .logo-font { font-family: 'Playfair Display', serif; }
-        .video-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-        .video-card:hover { transform: scale(1.04); box-shadow: 0 15px 30px -10px rgba(0,0,0,0.6); }
-        .neon-red { text-shadow: 0 0 15px #ff0000aa; }
+        .video-card, .photo-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .video-card:hover, .photo-card:hover { transform: scale(1.06); box-shadow: 0 25px 30px -10px rgba(255,0,0,0.3); }
+        .neon-red { text-shadow: 0 0 20px #ff0000; }
+        .tab-active { border-bottom: 3px solid #ff0000; color: white; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; }
     </style>
 </head>
-<body class="bg-zinc-950 text-white min-h-screen">
+<body class="bg-zinc-950 text-white min-h-screen pb-20">
 
-    <!-- AGE GATE (Mobile friendly - big buttons, centered) -->
-    <div id="ageGate" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
-        <div class="w-full max-w-md bg-zinc-900 rounded-3xl p-8 sm:p-10 text-center border border-red-600/50 shadow-2xl">
-            <div class="mx-auto w-20 h-20 sm:w-24 sm:h-24 bg-red-600/20 rounded-2xl flex items-center justify-center mb-6 border border-red-500/30">
-                <span class="text-6xl sm:text-7xl">🔞</span>
+    <!-- AGE GATE -->
+    <div id="ageGate" class="fixed inset-0 bg-black/95 z-[999] flex items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-zinc-900 rounded-3xl p-8 text-center border border-red-600 shadow-2xl">
+            <div class="mx-auto w-28 h-28 bg-red-600 rounded-3xl flex items-center justify-center mb-8">
+                <span class="text-7xl">🔞</span>
             </div>
-            <h1 class="text-5xl sm:text-6xl font-bold logo-font tracking-tight mb-3 neon-red">HinaHub</h1>
-            <p class="text-2xl sm:text-3xl mb-8 text-zinc-200 font-medium">Are you 18+ or not?</p>
+            <h1 class="text-6xl logo-font tracking-tighter neon-red">HinaHub</h1>
+            <p class="text-3xl mt-4 mb-10">Are you 18+ or not?</p>
             
-            <div class="grid grid-cols-1 gap-5">
-                <button onclick="enterSite()" 
-                        class="bg-red-600 hover:bg-red-700 py-6 text-2xl font-bold rounded-2xl transition-all active:scale-95 shadow-lg">
-                    YES, I'M 18+
-                </button>
-                <button onclick="leaveSite()" 
-                        class="bg-zinc-800 hover:bg-zinc-700 py-6 text-2xl font-bold rounded-2xl transition-all active:scale-95">
-                    NO, GET ME OUT
-                </button>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="enterSite()" class="bg-red-600 hover:bg-red-700 py-7 text-2xl font-bold rounded-3xl active:scale-95">YES, I'M 18+</button>
+                <button onclick="leaveSite()" class="bg-zinc-800 hover:bg-zinc-700 py-7 text-2xl font-bold rounded-3xl active:scale-95">NO, OUT!</button>
             </div>
             
-            <div class="mt-10 bg-zinc-800/60 border border-yellow-500/40 rounded-2xl p-6 text-sm">
-                <p class="text-yellow-300 font-semibold mb-2">⚠️ Bro Warning (must read):</p>
-                <p class="text-zinc-300 leading-relaxed">
-                    If you lied and tapped "YES" anyway... congrats! 🎉<br>
-                    You've just activated the **Lifetime Hand Romance Plan**! 💍<br>
-                    Your palm is now your forever partner — no dates, no drama, just endless Netflix &amp; chill (solo edition) till you're 90. 😂<br><br>
-                    Karma's got screenshots. Use responsibly... or don't. We won't judge. 😉<br>
-                    — Team HinaHub
-                </p>
+            <div class="mt-10 p-6 bg-zinc-800/70 border border-yellow-400 rounded-2xl text-left text-sm">
+                <p class="text-yellow-300 font-bold mb-3">⚠️ LIFETIME WARNING (read or regret 😂):</p>
+                <p class="text-zinc-300">Agar tune jhooth bola aur "YES" tap kiya... toh bhai congratulations! 🎉<br>
+                Tu ab **Lifetime Masturbation Club** ka permanent member ban gaya! 💍<br>
+                Tera haath ab official girlfriend hai – koi breakup nahi, koi date nahi, sirf tu aur tu... forever till 2099. No refunds, no escape.<br><br>
+                Karma watching with popcorn. Enjoy... ya mat. We don't judge 😉<br>
+                — HinaHub Team (by Ankush)</p>
             </div>
-            
-            <p class="text-xs text-zinc-500 mt-8">Developed by Ankush • Zero ads • Mobile vibes only</p>
+            <p class="text-xs text-zinc-500 mt-8">Developed by Ankush • 2026 • Zero ads ever</p>
         </div>
     </div>
 
-    <!-- MAIN CONTENT (hidden until age verified) -->
-    <div id="mainSite" class="hidden min-h-screen">
+    <!-- MAIN SITE -->
+    <div id="mainSite" class="hidden">
 
-        <!-- Sticky Mobile Header -->
-        <header class="bg-black/90 backdrop-blur-md border-b border-zinc-800 sticky top-0 z-40">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 bg-red-600 rounded-xl flex items-center justify-center text-2xl">🔥</div>
+        <!-- HEADER -->
+        <header class="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-zinc-800">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-red-600 rounded-2xl flex items-center justify-center text-4xl">🔥</div>
                     <div>
-                        <h1 class="logo-font text-2xl sm:text-3xl tracking-tight neon-red">HinaHub</h1>
-                        <p class="text-[10px] sm:text-xs text-red-400 -mt-1 tracking-widest">HINA VIBES ONLY</p>
+                        <h1 class="logo-font text-3xl neon-red">HinaHub</h1>
+                        <p class="text-xs text-red-400 -mt-1">HINA'S HOT WORLD</p>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-3">
-                    <div class="hidden sm:flex items-center gap-2 bg-zinc-900 px-3 py-1.5 rounded-full text-xs">
-                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                        14K online
-                    </div>
-                    <button onclick="alert('Search soon... abhi bas scroll kar! 😂')" 
-                            class="bg-zinc-800 hover:bg-zinc-700 px-4 sm:px-5 py-2.5 rounded-xl text-sm font-semibold">
-                        🔍
-                    </button>
+                <div class="flex items-center gap-4">
+                    <input id="searchInput" 
+                           onkeyup="filterContent()" 
+                           type="text" 
+                           placeholder="Search Hina videos or photos..." 
+                           class="bg-zinc-900 border border-zinc-700 focus:border-red-500 rounded-3xl px-6 py-3 w-64 text-sm outline-none">
+                    <button onclick="randomVideo()" class="bg-zinc-800 hover:bg-red-600 px-5 py-3 rounded-3xl text-sm font-medium">🎲 Random</button>
                 </div>
             </div>
         </header>
 
-        <!-- Hero (Mobile optimized - smaller text, bigger CTA feel) -->
-        <div class="relative pt-10 pb-16 sm:pt-16 sm:pb-24 bg-gradient-to-b from-zinc-950 via-red-950/20 to-zinc-950">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-                <p class="uppercase tracking-widest text-red-500 text-xs sm:text-sm mb-4">NO ADS • JUST HINA</p>
-                <h2 class="text-4xl sm:text-6xl md:text-7xl font-bold logo-font leading-tight mb-5 neon-red">
-                    HINA IS<br>READY FOR YOU
-                </h2>
-                <p class="max-w-lg mx-auto text-base sm:text-xl text-zinc-300 mb-8">
-                    Tap any thumbnail → straight to hot original video (xHamster style).<br class="hidden sm:inline">
-                    Zero bullshit. Pure mobile pleasure.
-                </p>
-                <div class="inline-flex items-center gap-3 bg-zinc-900/80 px-6 py-3 rounded-2xl text-sm">
-                    <span class="text-red-400">🚀</span>
-                    <span>Developed by Ankush • 2026 vibes</span>
+        <!-- TABS -->
+        <div class="max-w-7xl mx-auto px-4 sticky top-16 z-40 bg-zinc-950 border-b border-zinc-800">
+            <div class="flex text-sm font-medium overflow-x-auto pb-2">
+                <button onclick="switchTab(0)" id="tab0" class="tab-active px-8 py-4">VIDEOS</button>
+                <button onclick="switchTab(1)" id="tab1" class="px-8 py-4 text-zinc-400">PHOTOS</button>
+                <button onclick="switchTab(2)" id="tab2" class="px-8 py-4 text-zinc-400">CATEGORIES</button>
+                <button onclick="switchTab(3)" id="tab3" class="px-8 py-4 text-zinc-400">LIVE</button>
+            </div>
+        </div>
+
+        <!-- VIDEOS SECTION -->
+        <div id="section0" class="max-w-7xl mx-auto px-4 py-8">
+            <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">🔥 Trending Right Now</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5" id="videoGrid">
+                <!-- 12 video cards added via JS for easy management -->
+            </div>
+
+            <h2 class="text-3xl font-bold mt-16 mb-6">🌟 New Releases</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5" id="newGrid">
+                <!-- more cards -->
+            </div>
+        </div>
+
+        <!-- PHOTOS SECTION (Porn wali Hina images) -->
+        <div id="section1" class="max-w-7xl mx-auto px-4 py-8 hidden">
+            <h2 class="text-3xl font-bold mb-6">📸 Hina's Exclusive Porn Photos</h2>
+            <p class="text-zinc-400 mb-8">Tap any photo to see full HD version (opens original hot site)</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5" id="photoGrid">
+                <!-- populated by JS -->
+            </div>
+        </div>
+
+        <!-- CATEGORIES SECTION -->
+        <div id="section2" class="max-w-7xl mx-auto px-4 py-8 hidden">
+            <h2 class="text-3xl font-bold mb-8">Categories</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div onclick="filterByCategory(this)" class="cat-pill bg-zinc-900 hover:bg-red-600 p-6 rounded-3xl text-center cursor-pointer transition">Desi Indian</div>
+                <div onclick="filterByCategory(this)" class="cat-pill bg-zinc-900 hover:bg-red-600 p-6 rounded-3xl text-center cursor-pointer transition">Shower Tease</div>
+                <div onclick="filterByCategory(this)" class="cat-pill bg-zinc-900 hover:bg-red-600 p-6 rounded-3xl text-center cursor-pointer transition">Blowjob</div>
+                <div onclick="filterByCategory(this)" class="cat-pill bg-zinc-900 hover:bg-red-600 p-6 rounded-3xl text-center cursor-pointer transition">Anal</div>
+                <div onclick="filterByCategory(this)" class="cat-pill bg-zinc-900 hover:bg-red-600 p-6 rounded-3xl text-center cursor-pointer transition">Lesbian</div>
+                <div onclick="filterByCategory(this)" class="cat-pill bg-zinc-900 hover:bg-red-600 p-6 rounded-3xl text-center cursor-pointer transition">First Time</div>
+            </div>
+        </div>
+
+        <!-- LIVE SECTION -->
+        <div id="section3" class="max-w-7xl mx-auto px-4 py-8 hidden">
+            <h2 class="text-3xl font-bold mb-6">LIVE CAMS 🔥</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="bg-zinc-900 rounded-3xl overflow-hidden">
+                    <div class="aspect-video bg-black relative flex items-center justify-center">
+                        <span class="text-6xl">📹</span>
+                        <div class="absolute top-4 right-4 bg-red-600 px-4 py-1 text-xs rounded-full animate-pulse">LIVE</div>
+                    </div>
+                    <div class="p-5">
+                        <p class="font-bold">Hina Live Shower Right Now</p>
+                        <p class="text-xs text-zinc-400">14,892 watching • Join now</p>
+                    </div>
                 </div>
+                <!-- more live cards -->
             </div>
         </div>
 
-        <!-- Video Grid - Fully responsive -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8">
-                <h3 class="text-3xl sm:text-4xl font-bold">Trending Now 🔥</h3>
-                <p class="text-zinc-400 text-sm sm:text-base mt-2 sm:mt-0">Tap to open on original site • Enjoy!</p>
-            </div>
-            
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
-                
-                <!-- Sample Video Card (repeat as needed) -->
-                <a href="https://xhamster.com/videos/indian-beauty-hina-hot-shower-123456789" target="_blank" class="video-card group block">
-                    <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-zinc-900 aspect-video">
-                        <img src="https://picsum.photos/id/1015/600/340" alt="Hina Shower" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                        <div class="absolute bottom-2 right-2 bg-black/70 px-2 py-0.5 text-xs rounded-md">18:42</div>
-                        <div class="absolute top-2 left-2 bg-red-600/90 text-[10px] sm:text-xs px-2.5 py-1 rounded-full font-bold">HINA</div>
-                    </div>
-                    <div class="mt-3 px-1">
-                        <h4 class="font-medium text-sm sm:text-base leading-tight line-clamp-2 group-hover:text-red-400">Hina's Steamy Shower Tease</h4>
-                        <p class="text-xs text-zinc-500 mt-1.5">xHamster • 1.2M views</p>
-                    </div>
-                </a>
-
-                <!-- Repeat similar blocks for more videos... -->
-                <a href="https://xhamster.com/videos/hina-desi-girl-first-time-987654321" target="_blank" class="video-card group block">
-                    <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-zinc-900 aspect-video">
-                        <img src="https://picsum.photos/id/201/600/340" alt="Hina" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                        <div class="absolute bottom-2 right-2 bg-black/70 px-2 py-0.5 text-xs rounded-md">22:19</div>
-                        <div class="absolute top-2 left-2 bg-red-600/90 text-[10px] sm:text-xs px-2.5 py-1 rounded-full font-bold">HINA</div>
-                    </div>
-                    <div class="mt-3 px-1">
-                        <h4 class="font-medium text-sm sm:text-base leading-tight line-clamp-2 group-hover:text-red-400">Hina Desi First Time Adventure</h4>
-                        <p class="text-xs text-zinc-500 mt-1.5">xHamster • 890K views</p>
-                    </div>
-                </a>
-
-                <!-- Add 8-10 more cards like this for real feel -->
-
-            </div>
-
-            <div class="mt-12 text-center">
-                <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" 
-                        class="bg-transparent border-2 border-red-600 text-red-400 hover:bg-red-600/20 hover:text-white px-8 sm:px-10 py-4 rounded-2xl text-base font-semibold transition-all">
-                    MORE HINA VIDEOS ↓
-                </button>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="bg-black py-10 border-t border-zinc-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-                <p class="text-zinc-500 text-sm">
-                    © 2026 HinaHub • Redirects to original sites<br>
-                    <span class="text-red-400 font-medium">Built with ❤️ by Ankush</span>
-                </p>
-                <p class="text-xs text-zinc-600 mt-4">Don't lie about age... warna haath bol dega "breakup" 😂</p>
-            </div>
+        <!-- FOOTER -->
+        <footer class="bg-black py-12 border-t border-zinc-800 text-center">
+            <p class="text-red-400 font-medium">Developed by Ankush • 100% professional • No ads ever</p>
+            <p class="text-xs text-zinc-500 mt-4">All videos &amp; photos redirect to original sites like xHamster</p>
+            <p class="text-[10px] text-zinc-600 mt-6">Don't lie about age... warna haath bol dega "divorce" 😂</p>
         </footer>
+
+        <!-- BOTTOM NAV (Mobile) -->
+        <div class="bottom-nav bg-zinc-900 border-t border-zinc-700 py-3 flex text-xs">
+            <button onclick="switchTab(0)" class="flex-1 flex flex-col items-center gap-1 text-red-400">
+                <span class="text-2xl">📹</span> Videos
+            </button>
+            <button onclick="switchTab(1)" class="flex-1 flex flex-col items-center gap-1 text-zinc-400">
+                <span class="text-2xl">📸</span> Photos
+            </button>
+            <button onclick="switchTab(2)" class="flex-1 flex flex-col items-center gap-1 text-zinc-400">
+                <span class="text-2xl">🏷️</span> Cats
+            </button>
+            <button onclick="switchTab(3)" class="flex-1 flex flex-col items-center gap-1 text-zinc-400">
+                <span class="text-2xl">📡</span> Live
+            </button>
+        </div>
     </div>
 
     <script>
+        // Tailwind ready
         function enterSite() {
             document.getElementById('ageGate').classList.add('hidden');
             document.getElementById('mainSite').classList.remove('hidden');
-            document.getElementById('mainSite').classList.add('block');
+            loadContent();
         }
-        
         function leaveSite() {
-            alert("Good decision! Ab grass chhu le bhai 😂\n\nMilte hain jab real 18+ ban jaaye!");
-            window.location.href = "https://www.google.com";
+            alert("Smart move bhai 😂\nAb grass touch kar le!");
+            window.location = "https://google.com";
         }
+
+        let videos = [
+            {title:"Hina Steamy Shower Tease", duration:"18:42", views:"1.4M", link:"https://xhamster.com/videos/indian-beauty-hina-hot-shower-123456789", img:"https://picsum.photos/id/1015/600/340"},
+            {title:"Hina Desi First Time Anal", duration:"22:19", views:"987K", link:"https://xhamster.com/videos/hina-desi-girl-first-time-anal-987654321", img:"https://picsum.photos/id/201/600/340"},
+            {title:"Hina Blowjob Compilation", duration:"15:55", views:"2.3M", link:"https://xhamster.com/videos/hina-blowjob-compilation-best-ever-112233", img:"https://picsum.photos/id/29/600/340"},
+            {title:"Hina Lesbian With Bestie", duration:"28:10", views:"1.6M", link:"https://xhamster.com/videos/hina-lesbian-fun-with-bestie-667788", img:"https://picsum.photos/id/160/600/340"},
+            {title:"Hina Oil Massage Fuck", duration:"24:33", views:"756K", link:"https://xhamster.com/videos/hina-oil-massage-445566", img:"https://picsum.photos/id/64/600/340"},
+            {title:"Hina Public Risky Sex", duration:"12:45", views:"3.1M", link:"https://xhamster.com/videos/hina-public-risky-998877", img:"https://picsum.photos/id/30/600/340"},
+            // add more for bigger feel
+            {title:"Hina Deepthroat Challenge", duration:"19:08", views:"1.1M", link:"https://xhamster.com/videos/hina-deepthroat-11223344", img:"https://picsum.photos/id/201/600/340"},
+            {title:"Hina Creampie Desi Wife", duration:"17:50", views:"2.8M", link:"https://xhamster.com/videos/hina-creampie-556677", img:"https://picsum.photos/id/1015/600/340"}
+        ];
+
+        let photoImages = [
+            "https://picsum.photos/id/1015/600/900", "https://picsum.photos/id/201/600/900",
+            "https://picsum.photos/id/29/600/900", "https://picsum.photos/id/160/600/900",
+            "https://picsum.photos/id/64/600/900", "https://picsum.photos/id/30/600/900",
+            "https://picsum.photos/id/201/600/900", "https://picsum.photos/id/1015/600/900",
+            "https://picsum.photos/id/29/600/900", "https://picsum.photos/id/160/600/900"
+        ];
+
+        function loadContent() {
+            // Load videos
+            const videoHTML = videos.map(v => `
+                <a href="${v.link}" target="_blank" class="video-card block">
+                    <div class="relative rounded-3xl overflow-hidden bg-zinc-900 aspect-video">
+                        <img src="${v.img}" class="w-full h-full object-cover">
+                        <div class="absolute bottom-3 right-3 bg-black/80 text-xs px-3 py-1 rounded">${v.duration}</div>
+                        <div class="absolute top-3 left-3 bg-red-600 text-[10px] px-3 py-1 rounded-full">HINA</div>
+                    </div>
+                    <p class="mt-3 text-sm font-medium line-clamp-2">${v.title}</p>
+                    <p class="text-xs text-zinc-400">${v.views} views</p>
+                </a>
+            `).join('');
+            document.getElementById('videoGrid').innerHTML = videoHTML;
+            document.getElementById('newGrid').innerHTML = videoHTML; // same for demo
+
+            // Load photos (porn wali Hina)
+            const photoHTML = photoImages.map((src,i) => `
+                <a href="${src}" target="_blank" class="photo-card block">
+                    <div class="relative rounded-3xl overflow-hidden bg-zinc-900 aspect-[3/4]">
+                        <img src="${src}" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 bg-red-600 text-xs px-3 py-1 rounded-full">HINA NUDE</div>
+                    </div>
+                    <p class="mt-3 text-xs text-zinc-400">Hina Exclusive Porn Pic ${i+1}</p>
+                </a>
+            `).join('');
+            document.getElementById('photoGrid').innerHTML = photoHTML;
+        }
+
+        function switchTab(n) {
+            document.querySelectorAll('#section0,#section1,#section2,#section3').forEach(s => s.classList.add('hidden'));
+            document.getElementById('section'+n).classList.remove('hidden');
+            
+            document.querySelectorAll('.tab-active').forEach(t => t.classList.remove('tab-active'));
+            document.getElementById('tab'+n).classList.add('tab-active');
+        }
+
+        function filterContent() {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('#videoGrid .video-card');
+            cards.forEach(card => {
+                const title = card.querySelector('p').textContent.toLowerCase();
+                card.style.display = title.includes(term) ? 'block' : 'none';
+            });
+        }
+
+        function filterByCategory(el) {
+            alert(`Filtering for ${el.textContent}... (demo – all Hina videos shown)`);
+            // In real would filter, but demo
+        }
+
+        function randomVideo() {
+            const random = videos[Math.floor(Math.random()*videos.length)];
+            window.open(random.link, '_blank');
+        }
+
+        // Keyboard shortcut for fun
+        document.addEventListener('keydown', e => {
+            if (e.key === '/' && document.getElementById('searchInput')) {
+                document.getElementById('searchInput').focus();
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
-</html>
+            </html>
